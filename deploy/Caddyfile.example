@@ -1,0 +1,5 @@
+status.example.com {
+    encode gzip
+    header -Server
+    reverse_proxy 127.0.0.1:9085
+}

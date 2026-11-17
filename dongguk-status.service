@@ -1,0 +1,31 @@
+[Unit]
+Description=Dongguk service status monitor
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=dongguk-status
+Group=dongguk-status
+WorkingDirectory=/opt/dongguk-status
+Environment=STATUS_DB=/var/lib/dongguk-status/status.db
+ExecStart=/usr/bin/python3 /opt/dongguk-status/server.py
+StateDirectory=dongguk-status
+StateDirectoryMode=0700
+Restart=always
+RestartSec=10
+Nice=10
+MemoryMax=96M
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/dongguk-status
+InaccessiblePaths=-/run/docker.sock -/run/lxd
+CapabilityBoundingSet=
+RestrictSUIDSGID=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target
